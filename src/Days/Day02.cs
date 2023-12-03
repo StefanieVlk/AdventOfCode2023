@@ -46,4 +46,37 @@ public class Day02
         }
         return idsOfPossibleGames.Sum();
     }
+
+    public int ExecuteTask2()
+    {
+        List<int> powerCubeSet = new();
+        foreach(var line in myInput)
+        {
+            var redCubesPerRound = new List<int>();
+            var greenCubesPerRound = new List<int>();
+            var blueCubesPerRound = new List<int>();
+
+            var redSplit = line.Split("red");
+            var greenSplit = line.Split("green");
+            var blueSplit = line.Split("blue");
+
+            for(int i = 0; i < redSplit.Length - 1; i++)
+            {
+                redCubesPerRound.Add(Convert.ToInt32(redSplit[i].Trim().Split(' ').Last()));
+            }
+
+            for(int i = 0; i < greenSplit.Length - 1; i++)
+            {
+                greenCubesPerRound.Add(Convert.ToInt32(greenSplit[i].Trim().Split(' ').Last()));
+            }
+
+            for(int i = 0; i < blueSplit.Length - 1; i++)
+            {
+                blueCubesPerRound.Add(Convert.ToInt32(blueSplit[i].Trim().Split(' ').Last()));
+            }
+            powerCubeSet.Add(redCubesPerRound.Max() * greenCubesPerRound.Max() * blueCubesPerRound.Max());
+        }
+
+        return powerCubeSet.Sum();
+    }
 }
