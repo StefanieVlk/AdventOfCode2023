@@ -6,6 +6,7 @@ public class Day03
 {
     private readonly string[] myInput = PuzzleInput.Read("day03.txt");
     private char[,]? inputAsChars;
+    private Dictionary<List<(int,int)>, int> partNumbers = new();
 
     public int ExecuteTask1()
     {
@@ -20,7 +21,6 @@ public class Day03
             }
         }
 
-        var result = 0;
         for(int row = 0; row < inputAsChars.GetLength(0); row++)
         {
             for(int column = 0; column < inputAsChars.GetLength(1); column++)
@@ -31,13 +31,13 @@ public class Day03
                     column += indicesCoveredByCurrentNumber.Count - 1;
                     if(IsPartNumber(indicesCoveredByCurrentNumber))
                     {
-                        result+=number;
+                        partNumbers.Add(indicesCoveredByCurrentNumber, number);
                     }
                 }
             }
         }
 
-        return result;
+        return partNumbers.Values.Sum();
     }
 
     private List<(int, int)> GetArrayPositionsCoveredByNumber(int indexRow, int startingIndexColumn, out int number)
