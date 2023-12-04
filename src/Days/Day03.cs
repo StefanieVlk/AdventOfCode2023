@@ -6,7 +6,7 @@ public class Day03
 {
     private readonly string[] myInput = PuzzleInput.Read("day03.txt");
     private char[,]? inputAsChars;
-    private Dictionary<List<(int,int)>, int> partNumbers = new();
+    private readonly Dictionary<List<(int,int)>, int> partNumbers = new();
 
     public int ExecuteTask1()
     {
@@ -38,6 +38,27 @@ public class Day03
         }
 
         return partNumbers.Values.Sum();
+    }
+
+    public int ExecuteTask2()
+    {
+        var result = 0;
+        for(int row = 0; row < inputAsChars!.GetLength(0); row++)
+        {
+            for(int column = 0; column < inputAsChars.GetLength(1); column++)
+            {
+                if(inputAsChars[row, column] == '*')
+                {
+                    var neighbouringPartNumbers = GetNeighbouringPartNumbers(row, column);
+                    if(neighbouringPartNumbers.Count == 2)
+                    {
+                        result += neighbouringPartNumbers[0] * neighbouringPartNumbers[1];
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
     private List<(int, int)> GetArrayPositionsCoveredByNumber(int indexRow, int startingIndexColumn, out int number)
@@ -105,5 +126,23 @@ public class Day03
         }
 
         return false;
+    }
+
+    private List<int> GetNeighbouringPartNumbers(int row, int column)
+    {
+        List<int> neighbouringPartNumbers = new();
+        foreach(var partNumber in partNumbers)
+        {
+            foreach(var indices in partNumber.Key)
+            {
+                if(Math.Abs(indices.Item1 - row) <= 1 && Math.Abs(indices.Item2 - column) <= 1)
+                {
+                    neighbouringPartNumbers.Add(partNumber.Value);
+                    break;
+                }
+            }
+        }
+
+        return neighbouringPartNumbers;
     }
 }
