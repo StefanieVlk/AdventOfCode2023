@@ -12,3 +12,4 @@ Day03 day03 = new();
 
 Day04 day04 = new();
 Console.WriteLine(day04.ExecuteTask1());
+Console.WriteLine(day04.ExecuteTask2());
