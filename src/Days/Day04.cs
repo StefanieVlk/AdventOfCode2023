@@ -40,7 +40,7 @@ public class Day04
         return score;
     }
 
-    private int IncreaseScore(int score)
+    private static int IncreaseScore(int score)
     {
         if(score == 0)
         {
